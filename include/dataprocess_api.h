@@ -2,7 +2,7 @@
  * @Author: zjj
  * @Date: 2023-12-06 16:42:19
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-08 11:47:03
+ * @LastEditTime: 2023-12-13 14:26:45
  * @FilePath: /DataProcess/include/dataprocess_api.h
  * @Description:
  *
@@ -16,6 +16,6 @@ namespace ParkingPerception
 {
 namespace DataProcess
 {
-ImageProcess* CreateImageProcess(std::string config_file);
+std::shared_ptr<ImageProcess> CreateImageProcess(std::string config_file);
 }  // namespace DataProcess
 }  // namespace ParkingPerception

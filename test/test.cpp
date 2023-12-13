@@ -2,7 +2,7 @@
  * @Author: zjj
  * @Date: 2023-12-06 09:47:24
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-11 09:32:30
+ * @LastEditTime: 2023-12-13 14:27:31
  * @FilePath: /DataProcess/test/test.cpp
  * @Description:
  *
@@ -63,7 +63,7 @@ int main()
 
   //实例化ImageWarpaffine
   std::string config_path = "/hostdata/projects/parking_perception/modules/DataProcess/config/DataProcess.yaml";
-  ImageProcess* img_process = CreateImageProcess(config_path);
+  std::shared_ptr<ImageProcess> img_process = CreateImageProcess(config_path);
 
   //初始化
   if (0 != img_process->init())

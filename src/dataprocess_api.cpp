@@ -4,9 +4,9 @@ namespace ParkingPerception
 {
 namespace DataProcess
 {
-ImageProcess* CreateImageProcess(std::string config_file)
+std::shared_ptr<ImageProcess> CreateImageProcess(std::string config_file)
 {
-  return new ImageProcess(config_file);
+  return std::make_shared<ImageProcess>(config_file);
 }
 }  // namespace DataProcess
 }  // namespace ParkingPerception
