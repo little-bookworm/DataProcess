@@ -2,8 +2,8 @@
  * @Author: zjj
  * @Date: 2023-12-05 18:21:29
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-11 10:06:15
- * @FilePath: /ros_ws/hostdata/projects/parking_perception/modules/DataProcess/src/data_process.cpp
+ * @LastEditTime: 2023-12-13 11:18:07
+ * @FilePath: /DataProcess/src/data_process.cpp
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -41,8 +41,12 @@ int ImageProcess::init()
 int ImageProcess::load_config(std::string& config_path)
 {
   //导入yaml文件
-  YAML::Node config = YAML::LoadFile(config_path);
-  if (!config)
+  YAML::Node config;
+  try
+  {
+    config = YAML::LoadFile(config_path);
+  }
+  catch (const std::exception& e)
   {
     std::cout << "[ImageProcess]->[load_config] No config file: " << config_path << std::endl;
     return -1;
