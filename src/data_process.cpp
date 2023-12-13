@@ -29,6 +29,7 @@ int ImageProcess::init()
   if (size_src_.h_ == size_dst_.h_ && size_src_.w_ == size_dst_.w_)
   {
     if_use_warpaffine = false;
+    std::cout << "[ImageProcess]->[init] Init success." << std::endl;
     return 0;
   }
 
