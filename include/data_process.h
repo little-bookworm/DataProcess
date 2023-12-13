@@ -2,7 +2,7 @@
  * @Author: zjj
  * @Date: 2023-12-05 18:21:17
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-08 13:50:30
+ * @LastEditTime: 2023-12-13 13:31:33
  * @FilePath: /DataProcess/include/data_process.h
  * @Description:
  *
@@ -43,10 +43,11 @@ public:
   int daseg_filter(const cv::Mat& src_img, cv::Mat& dst_img);
 
 private:
-  int load_config(std::string& config_path);
+  int load_config();
   int initwarpaffine();
 
 private:
+  std::string config_path_;
   Size size_src_;
   Size size_dst_;
   cv::Mat m2x3_i2d = cv::Mat::zeros(2, 3, CV_32F);  // src to dst

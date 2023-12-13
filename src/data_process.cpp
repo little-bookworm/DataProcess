@@ -2,7 +2,7 @@
  * @Author: zjj
  * @Date: 2023-12-05 18:21:29
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-13 11:18:07
+ * @LastEditTime: 2023-12-13 13:32:51
  * @FilePath: /DataProcess/src/data_process.cpp
  * @Description:
  *
@@ -14,18 +14,18 @@ namespace ParkingPerception
 {
 namespace DataProcess
 {
-ImageProcess::ImageProcess(std::string config_path)
+ImageProcess::ImageProcess(std::string config_path) : config_path_(config_path)
 {
-  if (0 != load_config(config_path))
-  {
-    std::cout << "[ImageProcess]->[constructor] Failed to load config file." << std::endl;
-    return;
-  }
-  std::cout << "[ImageProcess]->[constructor] Loading config file success." << std::endl;
 }
 
 int ImageProcess::init()
 {
+  if (0 != load_config())
+  {
+    std::cout << "[ImageProcess]->[init] Failed to load config file." << std::endl;
+    return -1;
+  }
+
   if (size_src_.h_ == size_dst_.h_ && size_src_.w_ == size_dst_.w_)
   {
     if_use_warpaffine = false;
@@ -38,17 +38,17 @@ int ImageProcess::init()
   return 0;
 }
 
-int ImageProcess::load_config(std::string& config_path)
+int ImageProcess::load_config()
 {
   //导入yaml文件
   YAML::Node config;
   try
   {
-    config = YAML::LoadFile(config_path);
+    config = YAML::LoadFile(config_path_);
   }
   catch (const std::exception& e)
   {
-    std::cout << "[ImageProcess]->[load_config] No config file: " << config_path << std::endl;
+    std::cout << "[ImageProcess]->[load_config] No config file: " << config_path_ << std::endl;
     return -1;
   }
 
