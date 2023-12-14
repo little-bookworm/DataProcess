@@ -2,7 +2,7 @@
  * @Author: zjj
  * @Date: 2023-12-05 18:21:29
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-13 13:32:51
+ * @LastEditTime: 2023-12-14 16:42:17
  * @FilePath: /DataProcess/src/data_process.cpp
  * @Description:
  *
@@ -278,6 +278,34 @@ int ImageProcess::daseg_filter(const cv::Mat& src_img, cv::Mat& dst_img)
   }
 
   return 0;
+}
+
+int ImageProcess::calculate_parking_slot(const cv::Point2f& pt0, const cv::Point2f& pt1, const float depth,
+                                         const float theta, std::vector<cv::Point2f>& outpts)
+{
+  float x0 = pt0.x;
+  float y0 = pt0.y;
+  float x1 = pt1.x;
+  float y1 = pt1.y;
+  if (if_use_warpaffine)
+  {
+    //关键点x,y
+    x0 = x0 * m2x3_d2i.at<float>(0, 0) + m2x3_d2i.at<float>(0, 2);
+    y0 = y0 * m2x3_d2i.at<float>(0, 0) + m2x3_d2i.at<float>(1, 2);
+    x1 = x1 * m2x3_d2i.at<float>(0, 0) + m2x3_d2i.at<float>(0, 2);
+    y1 = y1 * m2x3_d2i.at<float>(0, 0) + m2x3_d2i.at<float>(1, 2);
+  }
+  float delta_x = depth * std::cos(theta);
+  float delta_y = depth * std::sin(theta);
+  cv::Point2f pt3 = { x0 - delta_x, y0 - delta_y };
+  cv::Point2f pt2 = { x1 - delta_x, y1 - delta_y };
+
+  //依次存入车位0，1，2，3点及中心点
+  outpts.clear();
+  outpts.push_back(pt0);
+  outpts.push_back(pt1);
+  outpts.push_back(pt2);
+  outpts.push_back(pt3);
 }
 
 }  // namespace DataProcess

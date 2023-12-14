@@ -2,7 +2,7 @@
  * @Author: zjj
  * @Date: 2023-12-05 18:21:17
  * @LastEditors: zjj
- * @LastEditTime: 2023-12-13 13:31:33
+ * @LastEditTime: 2023-12-14 16:42:14
  * @FilePath: /DataProcess/include/data_process.h
  * @Description:
  *
@@ -41,6 +41,8 @@ public:
   int imgWarpAffineInv(const cv::Mat& src_img, cv::Mat& dst_img);
   int llseg_filter(const cv::Mat& src_img, cv::Mat& dst_img);
   int daseg_filter(const cv::Mat& src_img, cv::Mat& dst_img);
+  int calculate_parking_slot(const cv::Point2f& pt0, const cv::Point2f& pt1, const float depth, const float theta,
+                             std::vector<cv::Point2f>& outpts);
 
 private:
   int load_config();
